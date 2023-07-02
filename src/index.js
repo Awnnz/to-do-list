@@ -1,18 +1,16 @@
 import createPage from './modules/create-page';
 import renderTask from './modules/renderPage';
-import inbox from './pages/inbox';
-import createTodayContainer from './pages/today';
-import createWeekContainer from './pages/week';
+import {createHeroContainer, createTodayContainer, createWeekContainer} from './pages/container-swap';
 import {toDoListCollection } from './modules/todo-objs';
 import { clearContainer } from './modules/functions';
 import './styles/page.css';
 
 createPage();
-inbox();
+createHeroContainer();
 
 document.querySelector('.inbox').addEventListener('click', () => {
     clearContainer();
-    inbox();
+    createHeroContainer();
     renderTask(toDoListCollection.getCollection('inbox'), '.inbox-container');
 })
 
@@ -28,7 +26,7 @@ document.querySelector('.week').addEventListener('click', () => {
     renderTask(toDoListCollection.getCollection('week'), '.week-container');
 })
 
-console.log('hi');
+
 
 
 

@@ -1,3 +1,5 @@
+import { toDoListCollection } from "./todo-objs";
+
 const renderTask = (task, section) => {
     const heroContainer = document.querySelector(section);
     if (!task) return;
@@ -16,4 +18,18 @@ const renderTask = (task, section) => {
     };
 };
 
+const renderJustAdded = (obj, section) => {
+    const heroContainer = document.querySelector(section);
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'card';
+    
+    for (const prop in obj[obj.length - 1]) {
+        const div = document.createElement('div');
+        div.innerHTML = `${prop}: ${obj[obj.length-1][prop]}`;
+        cardDiv.appendChild(div);
+    }
+    heroContainer.appendChild(cardDiv);
+};
+
 export default renderTask;
+export {renderJustAdded};

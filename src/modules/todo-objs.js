@@ -15,7 +15,7 @@ const toDoListCollection = (() => {
         return collection[section];
     };
 
-    const getAllCollections = (section) => {
+    const getAllCollections = () => {
         return collection;
     };
 
