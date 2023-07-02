@@ -10,13 +10,13 @@
     display: grid;
     grid-template-columns: 1fr 2fr 2fr;
     grid-template-rows: 50px 1fr;
-    border: 1px blue solid;
+    /* border: 1px blue solid; */
     height: 100vh;
 }
 
 .header {
     display: flex;
-    border: 1px red solid;
+    /* border: 1px red solid; */
     justify-content: space-around;
     align-items: center;
     font-size: 2rem;
@@ -25,13 +25,17 @@
 }
 
 .sidebar {
-    border: 1px black solid;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    /* border: 1px black solid; */
     font-size: 1.5rem;
 }
 
 .hero {
     position: relative;
-    border: 1px green solid;
+    /* border: 1px green solid; */
     grid-column-start: 2;
     grid-column-end: 4;
     font-size: 1.5rem;
@@ -43,11 +47,17 @@
 
 /* Hero Container */
 
+.hero {
+    animation-name: slideIn;
+    animation-duration: .6s;
+}
+
 .new-task {
     position: absolute;
     font-size: 3rem;
     width: 60px;
     background-color: lime;
+    border-radius: 30px;
     top: 90%;
     left: 90%;
 }
@@ -59,7 +69,7 @@
     justify-content: space-around;
     align-items: center;
     animation-name: slideUp;
-    animation-duration: .5s;
+    animation-duration: .3s;
 }
 
 @keyframes slideUp {
@@ -76,3 +86,37 @@
     
     }
   }
+
+  @keyframes slideIn {
+    0%,
+    100% {
+      transform: translateX(100%);
+      opacity: 1;
+    }
+     
+    60%,
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    
+    }
+  }
+
+  /* Sidebar */
+
+  .section {
+    width: 100%;
+  }
+
+  .section:hover {
+    background-color: lightgray;
+    font-size: 1.8rem;
+    transition: .1s font-size;
+    }
+
+    .section:active {
+        color: white;
+    }
+
+
+
