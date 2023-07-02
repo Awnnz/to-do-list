@@ -58,4 +58,21 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    animation-name: slideUp;
+    animation-duration: .5s;
 }
+
+@keyframes slideUp {
+    0%,
+    50% {
+      transform: translateY(100%);
+      opacity: 1;
+    }
+     
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    
+    }
+  }
