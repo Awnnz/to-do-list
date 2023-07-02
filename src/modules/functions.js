@@ -4,9 +4,8 @@ const addNewTask = (obj, section) => {
     toDoListCollection.add(obj, section)
 };
 
-const clearContainer = (container) => {
-    if (!document.querySelector(container)) return;
-    document.querySelector(container).remove();
+const clearContainer = () => {
+    document.querySelector('.hero').remove();
 };
 
 const resetDom = () => {
