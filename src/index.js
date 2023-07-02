@@ -28,6 +28,8 @@ document.querySelector('.week').addEventListener('click', () => {
     renderTask(toDoListCollection.getCollection('week'), '.week-container');
 })
 
+console.log('hi');
+
 
 
 
