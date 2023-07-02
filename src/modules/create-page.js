@@ -1,4 +1,6 @@
-    const createPage = () => {
+import { createOverlay } from "../pages/overlay";
+
+const createPage = () => {
     const container = document.querySelector('.main-container');
 
     const createHeader = (() => {
@@ -22,6 +24,8 @@
         `;
         container.appendChild(sideBar);
     })();    
+
+    createOverlay();
 };
 
 export default createPage;

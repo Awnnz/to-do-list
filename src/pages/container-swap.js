@@ -1,4 +1,4 @@
-import addNewTask from "../modules/functions";
+import addNewTask, {openForm} from "../modules/functions";
 import { toDoListCollection } from "../modules/todo-objs";
 import { renderJustAdded } from "../modules/renderPage";
 
@@ -14,8 +14,10 @@ const createHeroContainer = () => {
     container.appendChild(heroContainer);
 
     document.querySelector('.new-task').addEventListener('click', () => {
-        addNewTask({title: 'poop', desc: 'relive yoself', due: 'NOW!!', prio: 'very high'}, 'inbox');
-        renderJustAdded(toDoListCollection.getCollection('inbox'), '.inbox-container');
+        // addNewTask({title: 'poop', desc: 'relive yoself', due: 'NOW!!', prio: 'very high'}, 'inbox');
+        // renderJustAdded(toDoListCollection.getCollection('inbox'), '.inbox-container');
+
+        openForm();
     });
 };
 
@@ -49,7 +51,7 @@ const createWeekContainer = () => {
 
     document.querySelector('.new-task').addEventListener('click', () => {
         addNewTask({title: 'poop', desc: 'relive yoself', due: 'NOW!!', prio: 'very high'}, 'week');
-        renderJustAdded(toDoListCollection.getCollection('week'), '.week-container');
+        renderJustAdded(toDoListCollection.getCollection('week'), '.week-container');        
     });
 };
 
