@@ -2,6 +2,7 @@ import createPage from './modules/create-page';
 import addNewTask from './modules/functions';
 import renderTask from './modules/renderPage';
 import inbox from './pages/inbox';
+import createTodayContainer from './pages/today';
 import {toDoListCollection } from './modules/todo-objs';
 import { clearContainer } from './modules/functions';
 import { resetDom } from './modules/functions';
@@ -23,19 +24,19 @@ inbox();
 
 document.querySelector('.inbox').addEventListener('click', () => {
     clearContainer('.inbox-container');
+    clearContainer('.today-container');
     inbox();
-    renderTask(toDoListCollection.getCollection('inbox'));
+    renderTask(toDoListCollection.getCollection('inbox'), '.inbox-container');
 })
 
 document.querySelector('.today').addEventListener('click', () => {
-    resetDom();
-    addNewTask({title: 'poop', desc: 'relive yoself', due: 'NOW!!', prio: 'very high'}, 'inbox');
-    renderTask(toDoListCollection.getCollection('inbox'));
+    clearContainer('.today-container');
+    clearContainer('.inbox-container');
+    createTodayContainer();
+    renderTask(toDoListCollection.getCollection('today'), '.today-container');
 })
 
-document.querySelector('.week').addEventListener('click', () => {
-    
-});
+
 
 
 

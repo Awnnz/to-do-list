@@ -1,9 +1,8 @@
-const renderTask = (task) => {
-    const heroContainer = document.querySelector('.hero');
+const renderTask = (task, section) => {
+    const heroContainer = document.querySelector(section);
+    if (!task) return;
     
-
     for (let i = 0; i < task.length; i++) {
-
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
 
