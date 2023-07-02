@@ -4,6 +4,8 @@
     padding: 0;
 }
 
+/* Main Containers */
+
 .main-container {
     display: grid;
     grid-template-columns: 1fr 2fr 2fr;
@@ -28,8 +30,32 @@
 }
 
 .hero {
+    position: relative;
     border: 1px green solid;
     grid-column-start: 2;
     grid-column-end: 4;
     font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 5px;
+}
+
+/* Hero Container */
+
+.new-task {
+    position: absolute;
+    font-size: 3rem;
+    width: 60px;
+    background-color: lime;
+    top: 90%;
+    left: 90%;
+}
+
+.card {
+    background-color: aqua;
+    border: 1px black solid;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

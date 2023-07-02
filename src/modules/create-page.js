@@ -21,17 +21,7 @@
         <div class="week section">This Week</div>
         `;
         container.appendChild(sideBar);
-    })();
-
-    const createHeroContainer = (() => {
-        const heroContainer = document.createElement('div');
-        heroContainer.className = 'hero';
-        heroContainer.innerHTML = `
-        <div class="newTask">Add new Task!</div>
-        `;
-        container.appendChild(heroContainer);
-    })();
-    
+    })();    
 };
 
 export default createPage;
