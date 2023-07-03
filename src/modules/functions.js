@@ -1,4 +1,6 @@
 import {toDoListCollection} from './todo-objs.js';
+import logoImage from './../assets/logo.png';
+import { closeOverlay } from '../pages/overlay.js';
 
 const addNewTask = (obj, section) => {
     toDoListCollection.add(obj, section)
@@ -40,26 +42,58 @@ function createForm() {
         sideBar.appendChild(div);
     }
 
+    const header = document.createElement('header');
+    header.className = 'form-header';
+    formContainer.appendChild(header);
+
+    const logo = new Image();
+    logo.classList.add('form-logo');
+    logo.src = logoImage;
+    header.appendChild(logo);
+
+    const closeButton = document.createElement('div');
+    closeButton.classList.add('close-button');
+    closeButton.textContent = 'x';
+    closeButton.addEventListener('click', () => {
+        closeOverlay();
+    });
+    header.appendChild(closeButton);
+
     const form = document.createElement("form");
     form.className = 'form'
     formContainer.appendChild(form)
 
     const title = document.createElement("input");
+    title.classList.add('title-input');
     title.setAttribute("type", "text");
     title.setAttribute("name", "title");
     title.setAttribute("placeholder", "Title");
     form.appendChild(title);
 
     const description = document.createElement("textarea");
+    description.classList.add('description');
     description.setAttribute("type", "text");
     description.setAttribute("name", "desc");
     description.setAttribute("placeholder", "Details: e.g internet, phone, rent.");
     form.appendChild(description);
 
+    const dueDateDiv = document.createElement('div');
+    dueDateDiv.className = 'date-div';
+    form.appendChild(dueDateDiv);
+    
+    const dueDateText = document.createElement('div');
+    dueDateText.className = 'date-text';
+    dueDateText.innerText = 'Due Date:'
+    dueDateDiv.appendChild(dueDateText);
+
     const due = document.createElement("input");
     due.setAttribute("type", "date");
     due.setAttribute("name", "due");
-    form.appendChild(due);
+    dueDateDiv.appendChild(due);
+
+    const prioSubDiv = document.createElement('div');
+    prioSubDiv.className = 'prio-sub-div';
+    form.appendChild(prioSubDiv);
 
     const priority = document.createElement('select');
     const prioChoices = ['Low', 'Moderate', 'High'];
@@ -70,12 +104,12 @@ function createForm() {
         option.setAttribute('value', `${prioChoices[i].toLocaleLowerCase()}`);
         priority.appendChild(option);
     };
-    form.appendChild(priority);
+    prioSubDiv.appendChild(priority);
 
     var submit = document.createElement("input");
     submit.setAttribute("type", "submit");
     submit.setAttribute("value", "Submit");
-    form.appendChild(submit);
+    prioSubDiv.appendChild(submit);
 
     // Data extracted from form here
     form.addEventListener('submit', (e) => {
