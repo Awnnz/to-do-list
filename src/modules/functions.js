@@ -87,6 +87,7 @@ function createForm() {
     dueDateDiv.appendChild(dueDateText);
 
     const due = document.createElement("input");
+    due.className = 'due-date-input';
     due.setAttribute("type", "date");
     due.setAttribute("name", "due");
     dueDateDiv.appendChild(due);

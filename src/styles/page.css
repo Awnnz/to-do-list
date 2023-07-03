@@ -164,15 +164,27 @@ textarea {
 }
 
 .form {
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     display: flex;
+    justify-content: center;
     flex-direction: column;
     flex: 1;
     gap: 5px;
 }
 
 .form-sidebar {
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
     background-color: rgb(97, 158, 158);
+    color: lightcyan;
+    font-size: 1.8rem;
+}
+
+.form-sidebar > *:hover {
+    text-shadow: 0 0 2px whitesmoke;
 }
 
 .form-header {
@@ -193,22 +205,28 @@ textarea {
     color: white;
     font-size: 1.9rem;
     cursor: pointer;
+    font-family: lato, sans-serif;
 }
+
+.close-button:hover { text-shadow: 0 0 5px whitesmoke; }
 
 .title-input {
     height: 10%;
+    font-size: 2rem;
 }
 
 .description {
     height: 60%;
+    font-size: 1.3rem;
 }
 
 .date-div {
     display: flex;
     align-items: center;
     height: 10%;
-    border: 1px red solid;
-    gap: 5px;
+    gap: 10px;
+    color: lightcyan;
+    font-weight: bold;
 }
 
 .prio-sub-div {
@@ -216,6 +234,22 @@ textarea {
     justify-content: space-between;
     align-items: center;
     height: 10%;
-    border: 1px red solid;
+}
+
+.prio-sub-div > * {
+    height: 80%;
+    width: 20%;
+}
+
+.due-date-input {
+  padding: .5rem 1rem;
+  border: 1px solid lightcyan;
+  border-radius: 5px;
+  color: lightcyan;
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: lato, sans-serif;
 }
 
