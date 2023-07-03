@@ -1,6 +1,7 @@
 import {toDoListCollection} from './todo-objs.js';
 import logoImage from './../assets/logo.png';
 import { closeOverlay } from '../pages/overlay.js';
+import { renderJustAdded } from './renderPage.js';
 
 const addNewTask = (obj, section) => {
     toDoListCollection.add(obj, section)
@@ -115,12 +116,11 @@ function createForm() {
     // Data extracted from form here
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log(
-            title.value,
-            description.value,
-            due.value, 
-            priority.value
-            );
+        
+        addNewTask(extractFormData([title, description, due, priority]), 'inbox');
+        renderJustAdded(toDoListCollection.getCollection('inbox'), '.inbox-container');
+
+        closeOverlay();
     });
 
     const hero = document.querySelector('.hero');
@@ -131,6 +131,12 @@ function deleteForm() {
     const form = document.querySelector('.form-container');
     form.remove();
 }
+
+function extractFormData(formData) {
+    const formDataObj = {};
+    formData.forEach(input => formDataObj[input.name] = input.value);
+    return formDataObj;
+};
 
 
 

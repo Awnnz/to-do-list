@@ -9,14 +9,12 @@ const createHeroContainer = () => {
     heroContainer.className = 'hero';
     heroContainer.classList.add('inbox-container')
     heroContainer.innerHTML = `
-    <button class="new-task inbox-add">+</button>
+    <button class="new-task inbox-add inbox-flag">+</button>
     `;
     container.appendChild(heroContainer);
 
     document.querySelector('.new-task').addEventListener('click', () => {
-        // addNewTask({title: 'poop', desc: 'relive yoself', due: 'NOW!!', prio: 'very high'}, 'inbox');
-        // renderJustAdded(toDoListCollection.getCollection('inbox'), '.inbox-container');
-
+        
         openForm();
     });
 };
@@ -28,7 +26,7 @@ const createTodayContainer = () => {
     todayContainer.className = 'hero';
     todayContainer.classList.add('today-container')
     todayContainer.innerHTML = `
-    <button class="new-task today-add">+</button>
+    <button class="new-task today-add today-flag">+</button>
     `;
     container.appendChild(todayContainer);
 
@@ -45,7 +43,7 @@ const createWeekContainer = () => {
     weekContainer.className = 'hero';
     weekContainer.classList.add('week-container')
     weekContainer.innerHTML = `
-    <button class="new-task week-add">+</button>
+    <button class="new-task week-add week-flag">+</button>
     `;
     container.appendChild(weekContainer);
 
