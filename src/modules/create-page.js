@@ -18,9 +18,18 @@ const createPage = () => {
         const sideBar = document.createElement('div');
         sideBar.className = 'sidebar';
         sideBar.innerHTML = `
-        <div class="inbox section">Inbox</div>
-        <div class="today section">Today</div>
-        <div class="week section">This Week</div>
+        <div class="inbox-main section">
+            <span class='inbox-text'>Inbox</span>
+            <span class='inbox-count task-count'></span>
+        </div>
+        <div class="today-main section">
+            <span class='today-text'>Today</span>
+            <span class='today-count task-count'></span>
+        </div>
+        <div class="week-main section">
+            <span class='week-text'>Week</span>
+            <span class='week-count task-count'></span>
+        </div>
         `;
         container.appendChild(sideBar);
     })();    

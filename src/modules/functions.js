@@ -17,16 +17,17 @@ const resetDom = () => {
     cards.forEach(card => card.remove());
 };
 
-const openForm = () => {
+const openForm = (section) => {
+    
     // Activates overlay
     let overlay = document.querySelector('.overlay');
     overlay.classList.toggle('overlay-active');
 
-    createForm();
+    createForm(section);
     
 };
 
-function createForm() {
+function createForm(section) {
     const formContainer = document.createElement("div");
     formContainer.className = 'form-container'
 
@@ -116,9 +117,10 @@ function createForm() {
     // Data extracted from form here
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        addNewTask(extractFormData([title, description, due, priority]), 'inbox');
-        renderJustAdded(toDoListCollection.getCollection('inbox'), '.inbox-container');
+    
+        addNewTask(extractFormData([title, description, due, priority]), section);
+        renderJustAdded(toDoListCollection.getCollection(section), `.${section}-container`);
+        UpdateTaskCountDisplay(section);
 
         closeOverlay();
     });
@@ -138,8 +140,18 @@ function extractFormData(formData) {
     return formDataObj;
 };
 
+function changeHeaderTitle(section) {
+    const currentSection = document.querySelector('.current-section');
+
+    currentSection.textContent = section;
+};
+
+function UpdateTaskCountDisplay(section) {
+    let countDisplay = document.querySelector(`.${section}-count`);
+    countDisplay.innerHTML = toDoListCollection.getCollection(section).length;
+};
 
 
 
 export default addNewTask;
-export {clearContainer, resetDom, openForm, deleteForm};
+export {clearContainer, resetDom, openForm, deleteForm, changeHeaderTitle, UpdateTaskCountDisplay};

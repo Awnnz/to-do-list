@@ -6,6 +6,7 @@
 
 body {
     overflow: hidden;
+    background-color: azure;
 }
 
 /* Main Containers */
@@ -19,9 +20,9 @@ body {
 }
 
 .header {
+    background-color: aquamarine;
     display: flex;
     /* border: 1px red solid; */
-    justify-content: space-around;
     align-items: center;
     font-size: 2rem;
     grid-column-start: 1;
@@ -29,15 +30,18 @@ body {
 }
 
 .sidebar {
+    background-color: #5efdfd;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     text-align: center;
     /* border: 1px black solid; */
     font-size: 1.5rem;
+    padding-top: 20px;
 }
 
 .hero {
+    background-color: azure;
     position: relative;
     /* border: 1px green solid; */
     grid-column-start: 2;
@@ -47,6 +51,17 @@ body {
     flex-direction: column;
     gap: 10px;
     margin: 5px;
+}
+
+.header, .hero, .sidebar {
+    color: rgb(62, 72, 74);
+}
+
+/* Header */
+
+.logo, .current-section, .login {
+    width: 33%;
+    text-align: center;
 }
 
 /* Hero Container */
@@ -110,6 +125,10 @@ body {
 
   .section {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
   }
 
   .section:hover {
@@ -120,6 +139,24 @@ body {
 
     .section:active {
         color: white;
+    }
+
+    .task-count {
+        width: 2rem;
+        height: 2rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px rgb(134, 206, 203) solid;
+        background-color: #8a98ef;
+        border-radius: 50%;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #f7f7f7;
+        font-family: sans-serif;
+        &:empty {
+            display: none;
+          }
     }
 
 /* Overlay */
@@ -252,4 +289,7 @@ textarea {
   text-transform: uppercase;
   font-family: lato, sans-serif;
 }
+
+
+
 
