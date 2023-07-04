@@ -2,7 +2,7 @@ import createPage from './modules/create-page';
 import renderTask from './modules/renderPage';
 import {createHeroContainer, createTodayContainer, createWeekContainer} from './pages/container-swap';
 import {toDoListCollection } from './modules/todo-objs';
-import { clearContainer, changeHeaderTitle, UpdateTaskCountDisplay } from './modules/functions';
+import { clearContainer, changeHeaderTitle, markActiveSection, removeActiveSections } from './modules/functions';
 import './styles/page.css';
 
 createPage();
@@ -11,6 +11,8 @@ createHeroContainer();
 let inboxSiderbar = document.querySelector('.inbox-main');
 
 inboxSiderbar.addEventListener('click', (e) => {
+    removeActiveSections();
+    markActiveSection(e.target);
     changeHeaderTitle('Inbox');
     clearContainer();
     createHeroContainer();
@@ -20,6 +22,8 @@ inboxSiderbar.addEventListener('click', (e) => {
 
 
 document.querySelector('.today-main').addEventListener('click', (e) => {
+    removeActiveSections();
+    markActiveSection(e.target);
     changeHeaderTitle('Today');
     clearContainer();
     createTodayContainer();
@@ -27,6 +31,8 @@ document.querySelector('.today-main').addEventListener('click', (e) => {
 })
 
 document.querySelector('.week-main').addEventListener('click', (e) => {
+    removeActiveSections();
+    markActiveSection(e.target);
     changeHeaderTitle('Week');
     clearContainer();
     createWeekContainer();

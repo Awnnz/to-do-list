@@ -290,6 +290,21 @@ textarea {
   font-family: lato, sans-serif;
 }
 
+.section:hover::before {
+    content: "//";
+    
+    font-weight: 700;
+  }
 
+  .section:hover::after {
+    content: "//";
+    
+    font-weight: 700;
+  }
+
+  .selected::before, .selected::after {
+    content: "//";
+    font-weight: 700;
+  }
 
 

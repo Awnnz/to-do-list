@@ -151,7 +151,15 @@ function UpdateTaskCountDisplay(section) {
     countDisplay.innerHTML = toDoListCollection.getCollection(section).length;
 };
 
+function markActiveSection(section) {
+    if (section.tagName === 'SPAN') section.parentElement.classList.add('selected');
+    else section.classList.add('selected');
+};
 
+function removeActiveSections() {
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => section.classList.remove('selected'))
+};
 
 export default addNewTask;
-export {clearContainer, resetDom, openForm, deleteForm, changeHeaderTitle, UpdateTaskCountDisplay};
+export {clearContainer, resetDom, openForm, deleteForm, changeHeaderTitle, UpdateTaskCountDisplay, markActiveSection, removeActiveSections};
