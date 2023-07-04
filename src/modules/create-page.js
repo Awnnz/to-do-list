@@ -1,4 +1,5 @@
 import { createOverlay } from "../pages/overlay";
+import logo from './../assets/logo2.png';
 
 const createPage = () => {
     const container = document.querySelector('.main-container');
@@ -7,7 +8,9 @@ const createPage = () => {
         const header = document.createElement('header');
         header.className = 'header';
         header.innerHTML = `
-        <div class="logo">ToDo App</div>
+        <div class="logo">
+        <img class='logo-image' src=${logo}>
+        </div>
         <div class="current-section">Inbox</div>
         <div class="login">Login</div>
         `;
