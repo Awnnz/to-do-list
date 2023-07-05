@@ -11,6 +11,10 @@ const toDoListCollection = (() => {
         } else collection[section].push(obj);
     };
 
+    const remove = (section, index) => {
+        collection[section].splice(index, 1);
+    };
+
     const getCollection = (section) => {
         return collection[section];
     };
@@ -19,7 +23,7 @@ const toDoListCollection = (() => {
         return collection;
     };
 
-    return {add, getCollection, getAllCollections};
+    return {add, getCollection, getAllCollections, remove};
 })();
 
 

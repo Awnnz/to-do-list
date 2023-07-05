@@ -150,7 +150,10 @@ function changeHeaderTitle(section) {
 
 function UpdateTaskCountDisplay(section) {
     let countDisplay = document.querySelector(`.${section}-count`);
-    countDisplay.innerHTML = toDoListCollection.getCollection(section).length;
+    const taskAmount = toDoListCollection.getCollection(section).length;
+    
+    if (taskAmount < 1) countDisplay.innerHTML = '';
+    else countDisplay.innerHTML = taskAmount;  
 };
 
 function markActiveSection(section) {
@@ -168,7 +171,6 @@ function showCardDetail() {
 }
 
 function createCard(dataObj, section) {
-    
     const heroContainer = document.querySelector(`.${section}-container`);
 
     const cardDiv = document.createElement('div');
@@ -184,7 +186,7 @@ function createCard(dataObj, section) {
     const cardDetails = document.createElement('div');
     cardDetails.classList.add('card-details');
     cardDetails.classList.add('card-details-hide');
-
+    console.log(dataObj)
     for (const prop in dataObj) {
         if (prop === 'title' || prop === 'due') {
             const div = document.createElement('div');
@@ -212,7 +214,24 @@ function createCard(dataObj, section) {
     
     const deleteButton = new Image()
     deleteButton.src = deleteImage;
-    deleteButton.className = 'delete-button'
+    deleteButton.className = 'delete-button';
+
+    deleteButton.addEventListener('click', function() {
+        console.log(this.parentElement.querySelector('.title-value').textContent)
+        console.log(this.parentElement.querySelector('.due-value').textContent)
+
+        let objectIndex;
+        toDoListCollection.getCollection('inbox').forEach((element, index) => {
+                if (this.parentElement.querySelector('.title-value').textContent === element['title'] && (this.parentElement.querySelector('.due-value').textContent === element['due'])) {
+                    objectIndex = index;
+                }
+            });
+
+        toDoListCollection.remove(section, objectIndex);
+        this.parentElement.parentElement.remove();
+
+        UpdateTaskCountDisplay(section);
+    })
     cardMain.appendChild(deleteButton)
 
     heroContainer.appendChild(cardDiv);
@@ -220,4 +239,4 @@ function createCard(dataObj, section) {
 
 
 export default addNewTask;
-export {clearContainer, resetDom, openForm, deleteForm, changeHeaderTitle, UpdateTaskCountDisplay, markActiveSection, removeActiveSections};
+export {clearContainer, resetDom, openForm, deleteForm, changeHeaderTitle, UpdateTaskCountDisplay, markActiveSection, removeActiveSections, createCard};

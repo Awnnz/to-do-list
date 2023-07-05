@@ -1,4 +1,5 @@
 import { toDoListCollection } from "./todo-objs";
+import { createCard } from "./functions";
 
 const renderTask = (task, section) => {
     const heroContainer = document.querySelector(section);
@@ -37,11 +38,11 @@ const renderJustAdded = (obj, section) => {
     heroContainer.appendChild(cardDiv);
 };
 
-const renderTasks = () =>{
-    const tasks = toDoListCollection.getCollection('inbox');
-
-    if (!tasks) return;
-    tasks.forEach(x => console.log(x))
+const renderTasks = (dataObj, section) =>{
+    if (!dataObj) return;
+    dataObj.forEach(task => {
+        createCard(task, section)
+    })
     
     
 };

@@ -16,8 +16,7 @@ inboxSiderbar.addEventListener('click', (e) => {
     changeHeaderTitle('Inbox');
     clearContainer();
     createHeroContainer();
-    renderTask(toDoListCollection.getCollection('inbox'), '.inbox-container');
-    renderTasks();
+    renderTasks(toDoListCollection.getCollection('inbox'), 'inbox');
 })
 
 
@@ -27,7 +26,7 @@ document.querySelector('.today-main').addEventListener('click', (e) => {
     changeHeaderTitle('Today');
     clearContainer();
     createTodayContainer();
-    renderTask(toDoListCollection.getCollection('today'), '.today-container');
+    renderTasks(toDoListCollection.getCollection('today'), 'today');
 })
 
 document.querySelector('.week-main').addEventListener('click', (e) => {
@@ -36,7 +35,7 @@ document.querySelector('.week-main').addEventListener('click', (e) => {
     changeHeaderTitle('Week');
     clearContainer();
     createWeekContainer();
-    renderTask(toDoListCollection.getCollection('week'), '.week-container');
+    renderTasks(toDoListCollection.getCollection('week'), 'week');
 })
 
 

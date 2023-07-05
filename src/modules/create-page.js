@@ -1,5 +1,6 @@
 import { createOverlay } from "../pages/overlay";
 import logo from './../assets/logo2.png';
+import { toDoListCollection } from "./todo-objs";
 
 const createPage = () => {
     const container = document.querySelector('.main-container');
@@ -7,6 +8,9 @@ const createPage = () => {
     const createHeader = (() => {
         const header = document.createElement('header');
         header.className = 'header';
+        header.addEventListener('click', () => {
+            console.log(toDoListCollection.getCollection('inbox'));
+        })
         header.innerHTML = `
         <div class="logo">
         <img class='logo-image' src=${logo}>
