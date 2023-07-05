@@ -217,8 +217,6 @@ function createCard(dataObj, section) {
     deleteButton.className = 'delete-button';
 
     deleteButton.addEventListener('click', function() {
-        console.log(this.parentElement.querySelector('.title-value').textContent)
-        console.log(this.parentElement.querySelector('.due-value').textContent)
 
         let objectIndex;
         toDoListCollection.getCollection('inbox').forEach((element, index) => {
@@ -226,9 +224,13 @@ function createCard(dataObj, section) {
                     objectIndex = index;
                 }
             });
-
+        
+        this.parentElement.parentElement.classList.add('zoom');
         toDoListCollection.remove(section, objectIndex);
-        this.parentElement.parentElement.remove();
+        setTimeout(() => {
+            this.parentElement.parentElement.remove();
+        }, 700);
+        
 
         UpdateTaskCountDisplay(section);
     })

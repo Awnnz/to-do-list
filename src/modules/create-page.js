@@ -8,9 +8,7 @@ const createPage = () => {
     const createHeader = (() => {
         const header = document.createElement('header');
         header.className = 'header';
-        header.addEventListener('click', () => {
-            console.log(toDoListCollection.getCollection('inbox'));
-        })
+        
         header.innerHTML = `
         <div class="logo">
         <img class='logo-image' src=${logo}>
