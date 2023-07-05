@@ -37,5 +37,14 @@ const renderJustAdded = (obj, section) => {
     heroContainer.appendChild(cardDiv);
 };
 
+const renderTasks = () =>{
+    const tasks = toDoListCollection.getCollection('inbox');
+
+    if (!tasks) return;
+    tasks.forEach(x => console.log(x))
+    
+    
+};
+
 export default renderTask;
-export {renderJustAdded};
+export {renderJustAdded, renderTasks};

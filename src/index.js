@@ -1,5 +1,5 @@
 import createPage from './modules/create-page';
-import renderTask from './modules/renderPage';
+import renderTask, {renderTasks} from './modules/renderPage';
 import {createHeroContainer, createTodayContainer, createWeekContainer} from './pages/container-swap';
 import {toDoListCollection } from './modules/todo-objs';
 import { clearContainer, changeHeaderTitle, markActiveSection, removeActiveSections } from './modules/functions';
@@ -17,8 +17,8 @@ inboxSiderbar.addEventListener('click', (e) => {
     clearContainer();
     createHeroContainer();
     renderTask(toDoListCollection.getCollection('inbox'), '.inbox-container');
+    renderTasks();
 })
-
 
 
 document.querySelector('.today-main').addEventListener('click', (e) => {

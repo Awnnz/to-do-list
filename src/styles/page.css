@@ -99,34 +99,6 @@ body {
     left: 90%;
 }
 
-.card {
-    background-color: aqua;
-    border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
-    animation-name: slideUp;
-    animation-duration: .3s;
-}
-
-.card-main {
-    display: flex;
-}
-
-.card-details {
-    background-color: lightblue;
-}
-
-.card-details-hide {
-    display: none;
-}
-
-.card:hover {
-    transform: scale(1.004);
-    transform-origin: 50% 50%;
-    box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
-    transition: all .2s ease-out;
-}
-
 @keyframes slideUp {
     0%,
     50% {
@@ -156,6 +128,63 @@ body {
     
     }
   }
+
+/* Cards */
+
+.card {
+    background-color: aqua;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    animation-name: slideUp;
+    animation-duration: .3s;
+}
+
+.card-main {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    padding: 0 2rem;
+}
+
+.title-value {   
+    margin-right: auto;
+}
+
+.due-value {
+    margin-right: 4rem;
+}
+
+.edit-button {
+    margin-right: 1rem;
+}
+
+.delete-button {
+
+}
+
+.delete-button, .edit-button {
+    height: 50%;
+}
+
+.card-details {
+    background-color: lightblue;
+    padding: 1rem 2rem;
+    
+}
+
+.card-details-hide {
+    display: none;
+}
+
+.card:hover {
+    transform: scale(1.004);
+    transform-origin: 50% 50%;
+    box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
+    transition: all .2s ease-out;
+}
+
+
 
   /* Sidebar */
 
@@ -243,7 +272,7 @@ body {
     width: 90%
 }
 
-textarea {
+.description {
     resize: none;
     overflow: auto;
     height: 200px;
@@ -343,6 +372,8 @@ textarea {
   font-family: lato, sans-serif;
 }
 
-
+.hide-container {
+    display: none;
+}
 
 

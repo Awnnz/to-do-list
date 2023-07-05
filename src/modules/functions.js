@@ -1,5 +1,7 @@
 import {toDoListCollection} from './todo-objs.js';
 import logoImage from './../assets/logo.png';
+import deleteImage from './../assets/delete.svg';
+import editImage from './../assets/edit.svg';
 import { closeOverlay } from '../pages/overlay.js';
 import { renderJustAdded } from './renderPage.js';
 
@@ -202,8 +204,20 @@ function createCard(dataObj, section) {
 
     cardDiv.appendChild(cardMain);
     cardDiv.appendChild(cardDetails);
-    heroContainer.appendChild(cardDiv);
+
+    const editButton = new Image()
+    editButton.src = editImage;
+    editButton.className = 'edit-button'
+    cardMain.appendChild(editButton)
     
+    const deleteButton = new Image()
+    deleteButton.src = deleteImage;
+    deleteButton.className = 'delete-button'
+    cardMain.appendChild(deleteButton)
+
+    heroContainer.appendChild(cardDiv);
 }
+
+
 export default addNewTask;
 export {clearContainer, resetDom, openForm, deleteForm, changeHeaderTitle, UpdateTaskCountDisplay, markActiveSection, removeActiveSections};
