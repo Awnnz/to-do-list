@@ -60,10 +60,15 @@ body {
 /* Header */
 
 .current-section, .login {
-    
     width: 33%;
     text-align: center;
 }
+
+.title-change {
+    animation-name: slideIn;
+    animation-duration: .6s;
+}
+
 
 .logo-image {
     position: relative;
@@ -85,7 +90,7 @@ body {
 
 .hero {
     animation-name: slideIn;
-    animation-duration: .6s;
+    animation-duration: .65s;
 }
 
 .new-task {
@@ -155,7 +160,7 @@ body {
     display: flex;
     flex-direction: column;
     animation-name: slideUp;
-    animation-duration: .4s;
+    animation-duration: .3s;
 }
 
 .zoom {

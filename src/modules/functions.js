@@ -145,6 +145,10 @@ function extractFormData(formData) {
 function changeHeaderTitle(section) {
     const currentSection = document.querySelector('.current-section');
 
+    currentSection.classList.toggle('title-change');
+    
+    
+
     currentSection.textContent = section;
 };
 
