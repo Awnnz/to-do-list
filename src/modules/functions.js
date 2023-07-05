@@ -161,5 +161,20 @@ function removeActiveSections() {
     sections.forEach(section => section.classList.remove('selected'))
 };
 
+function showCardDetail() {
+    const detailsDiv = document.createElement('div');
+    div.innerHTML = 'test';
+    // document.querySelector('.card').appendChild(detailsDiv);
+}
+
+function scanAllCards() {
+    document.querySelectorAll('.card').forEach((card) => {
+
+        card.addEventListener('click', function() {
+            console.log(this)
+        })
+    })
+    
+};
 export default addNewTask;
 export {clearContainer, resetDom, openForm, deleteForm, changeHeaderTitle, UpdateTaskCountDisplay, markActiveSection, removeActiveSections};

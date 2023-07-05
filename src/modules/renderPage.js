@@ -22,6 +22,12 @@ const renderJustAdded = (obj, section) => {
     const heroContainer = document.querySelector(section);
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
+
+    cardDiv.addEventListener('click', function() {
+        const test = document.createElement('span');
+        test.innerHTML = 'test';
+        this.appendChild(test);
+    })
     
     for (const prop in obj[obj.length - 1]) {
         const div = document.createElement('div');
