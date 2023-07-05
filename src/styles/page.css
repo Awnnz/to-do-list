@@ -103,10 +103,21 @@ body {
     background-color: aqua;
     border-radius: 1rem;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: column;
     animation-name: slideUp;
     animation-duration: .3s;
+}
+
+.card-main {
+    display: flex;
+}
+
+.card-details {
+    background-color: lightblue;
+}
+
+.card-details-hide {
+    display: none;
 }
 
 .card:hover {
@@ -165,6 +176,23 @@ body {
     .section:active {
         color: white;
     }
+
+    .section:hover::before {
+        content: "//";
+        
+        font-weight: 700;
+      }
+    
+      .section:hover::after {
+        content: "//";
+        
+        font-weight: 700;
+      }
+    
+      .selected::before, .selected::after {
+        content: "//";
+        font-weight: 700;
+      }
 
     .task-count {
         width: 2rem;
@@ -315,21 +343,6 @@ textarea {
   font-family: lato, sans-serif;
 }
 
-.section:hover::before {
-    content: "//";
-    
-    font-weight: 700;
-  }
 
-  .section:hover::after {
-    content: "//";
-    
-    font-weight: 700;
-  }
-
-  .selected::before, .selected::after {
-    content: "//";
-    font-weight: 700;
-  }
 
 

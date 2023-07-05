@@ -119,7 +119,7 @@ function createForm(section) {
         e.preventDefault();
     
         addNewTask(extractFormData([title, description, due, priority]), section);
-        renderJustAdded(toDoListCollection.getCollection(section), `.${section}-container`);
+        createCard(extractFormData([title, description, due, priority]), section);
         UpdateTaskCountDisplay(section);
 
         closeOverlay();
@@ -162,19 +162,48 @@ function removeActiveSections() {
 };
 
 function showCardDetail() {
-    const detailsDiv = document.createElement('div');
-    div.innerHTML = 'test';
-    // document.querySelector('.card').appendChild(detailsDiv);
+    
 }
 
-function scanAllCards() {
-    document.querySelectorAll('.card').forEach((card) => {
-
-        card.addEventListener('click', function() {
-            console.log(this)
-        })
-    })
+function createCard(dataObj, section) {
     
-};
+    const heroContainer = document.querySelector(`.${section}-container`);
+
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'card';
+
+    cardDiv.addEventListener('click', function () {
+        this.querySelector('.card-details').classList.toggle('card-details-hide')
+    })
+
+    const cardMain = document.createElement('div');
+    cardMain.classList.add('card-main');
+
+    const cardDetails = document.createElement('div');
+    cardDetails.classList.add('card-details');
+    cardDetails.classList.add('card-details-hide');
+
+    for (const prop in dataObj) {
+        if (prop === 'title' || prop === 'due') {
+            const div = document.createElement('div');
+            div.classList.add(`${prop}-value`);
+            div.innerHTML = dataObj[prop];
+            cardMain.appendChild(div);
+        } else if (prop === 'desc') {
+            const detailsDiv = document.createElement('div');
+            detailsDiv.classList.add('details-value');
+            detailsDiv.innerHTML = dataObj[prop];
+            cardDetails.appendChild(detailsDiv)
+        }
+        else if (prop === 'prio') {
+            cardMain.classList.add(`${dataObj[prop]}`);
+        }      
+    }
+
+    cardDiv.appendChild(cardMain);
+    cardDiv.appendChild(cardDetails);
+    heroContainer.appendChild(cardDiv);
+    
+}
 export default addNewTask;
 export {clearContainer, resetDom, openForm, deleteForm, changeHeaderTitle, UpdateTaskCountDisplay, markActiveSection, removeActiveSections};
