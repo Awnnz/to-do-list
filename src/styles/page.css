@@ -199,15 +199,16 @@ body {
 }
 
 .title-value {   
+    margin-left: 3rem;
     margin-right: auto;
 }
 
 .due-value {
-    margin-right: 4rem;
+    margin-right: 3rem;
 }
 
 .edit-button {
-    margin-right: 1rem;
+    margin-right: 1.5rem;
 }
 
 .delete-button {
@@ -216,6 +217,40 @@ body {
 
 .delete-button, .edit-button {
     height: 50%;
+}
+
+.details-button {
+  position: relative;
+  margin-right: 2.5rem;
+  padding: .5rem 1rem;
+  border: 1px solid #0d1817;
+  border-radius: 3px;
+  font-size: 1rem;
+  color: #181c1b;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.details-button:hover {
+    position: relative;
+    background-color: #93e4d8;
+    color: rgb(25, 23, 23);
+  }
+
+.checked:before {
+    content: "";
+    position: absolute;
+    border-color: #009933;
+    border-style: solid;
+    border-width: 0 0.3em 0.25em 0;
+    height: 1em;
+    /* top: 1.3em;
+    left: 0.6em; */
+    margin-top: 0em;
+    transform: rotate(45deg);
+    width: 0.5em;
 }
 
 .card-details {
@@ -238,6 +273,8 @@ body {
     box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, .2);
     transition: all .2s ease-out;
 }
+
+
 
   /* Sidebar */
 

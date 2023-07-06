@@ -181,7 +181,8 @@ function createCard(dataObj, section) {
     cardDiv.className = 'card';
 
     cardDiv.addEventListener('click', function () {
-        this.querySelector('.card-details').classList.toggle('card-details-hide')
+        this.children[0].classList.toggle('checked')
+        
     })
 
     const cardMain = document.createElement('div');
@@ -190,7 +191,7 @@ function createCard(dataObj, section) {
     const cardDetails = document.createElement('div');
     cardDetails.classList.add('card-details');
     cardDetails.classList.add('card-details-hide');
-    console.log(dataObj)
+    console.log(cardMain.children);
     for (const prop in dataObj) {
         if (prop === 'title' || prop === 'due') {
             const div = document.createElement('div');
@@ -208,8 +209,27 @@ function createCard(dataObj, section) {
         }      
     }
 
+    
+    const detailsButton = document.createElement('div');
+    detailsButton.className = 'details-button';
+    detailsButton.textContent = 'DETAILS';
+
+    detailsButton.addEventListener('click', function () {
+        
+        this.parentElement.parentElement.querySelector('.card-details').classList.toggle('card-details-hide');
+    })
+
     cardDiv.appendChild(cardMain);
     cardDiv.appendChild(cardDetails);
+
+    
+    if (cardMain.children[1]) cardMain.insertBefore(detailsButton, cardMain.children[1]); else cardMain.appendChild(detailsButton);
+    
+    
+    
+
+
+
 
     const editButton = new Image()
     editButton.src = editImage;
@@ -240,7 +260,9 @@ function createCard(dataObj, section) {
     })
     cardMain.appendChild(deleteButton)
 
+    
     heroContainer.appendChild(cardDiv);
+    
 }
 
 
