@@ -70,6 +70,8 @@ function createForm(section) {
 
     const title = document.createElement("input");
     title.classList.add('title-input');
+    title.setAttribute('minlength', 3);
+    title.setAttribute('required', '');
     title.setAttribute("type", "text");
     title.setAttribute("name", "title");
     title.setAttribute("placeholder", "Title");
@@ -93,6 +95,7 @@ function createForm(section) {
 
     const due = document.createElement("input");
     due.className = 'due-date-input';
+    due.setAttribute('required', '');
     due.setAttribute("type", "date");
     due.setAttribute("name", "due");
     dueDateDiv.appendChild(due);
