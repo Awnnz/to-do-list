@@ -29,6 +29,119 @@ const openForm = (section) => {
     
 };
 
+const openEditForm = (section) => {
+    let overlay = document.querySelector('.overlay');
+    overlay.classList.toggle('overlay-active');
+
+    
+    editForm(section)
+};
+
+const editForm = (section) => {
+    const formContainer = document.createElement("div");
+    formContainer.className = 'form-container'
+
+    const header = document.createElement('header');
+    header.className = 'form-header';
+    formContainer.appendChild(header);
+
+    const logo = new Image();
+    logo.classList.add('form-logo');
+    logo.src = logoImage;
+    header.appendChild(logo);
+
+    const closeButton = document.createElement('div');
+    closeButton.classList.add('close-button');
+    closeButton.textContent = 'x';
+    closeButton.addEventListener('click', () => {
+        closeOverlay();
+    });
+    header.appendChild(closeButton);
+
+    const form = document.createElement("form");
+    form.className = 'form'
+    formContainer.appendChild(form)
+
+    const title = document.createElement("input");
+    title.classList.add('title-input');
+    title.setAttribute('minlength', 3);
+    title.setAttribute('required', '');
+    title.setAttribute("type", "text");
+    title.setAttribute("name", "title");
+    title.setAttribute("placeholder", "Title");
+    // title.textContent = obj[title];
+    form.appendChild(title);
+
+    const description = document.createElement("textarea");
+    description.classList.add('description');
+    description.setAttribute("type", "text");
+    description.setAttribute("name", "desc");
+    description.setAttribute("placeholder", "Details: e.g internet, phone, rent.");
+    form.appendChild(description);
+
+    const dueDateDiv = document.createElement('div');
+    dueDateDiv.className = 'date-div';
+    form.appendChild(dueDateDiv);
+    
+    const dueDateText = document.createElement('div');
+    dueDateText.className = 'date-text';
+    dueDateText.innerText = 'Due Date:'
+    dueDateDiv.appendChild(dueDateText);
+
+    const due = document.createElement("input");
+    due.className = 'due-date-input';
+    due.setAttribute('required', '');
+    due.setAttribute("type", "date");
+    due.setAttribute("name", "due");
+    dueDateDiv.appendChild(due);
+
+    const prioSubDiv = document.createElement('div');
+    prioSubDiv.className = 'prio-sub-div';
+    form.appendChild(prioSubDiv);
+
+    const priority = document.createElement('select');
+    const prioChoices = ['Low', 'Moderate', 'High'];
+    priority.setAttribute('name', 'prio');
+    for (let i = 0; i < prioChoices.length; i++) {
+        const option = document.createElement('option');
+        option.textContent = prioChoices[i];
+        option.setAttribute('value', `${prioChoices[i].toLocaleLowerCase()}`);
+        priority.appendChild(option);
+    };
+    prioSubDiv.appendChild(priority);
+
+    const submit = document.createElement("input");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("value", "Submit");
+    prioSubDiv.appendChild(submit);
+
+    // Data extracted from form here
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        let sectionSelected = document.querySelector('.sidebar-selected');
+        if (sectionSelected) {
+            sectionSelected = document.querySelector('.sidebar-selected').innerHTML.toLowerCase();
+
+            const objData = addNewTask(extractFormData([title, description, due, priority]), sectionSelected);
+            
+            UpdateTaskCountDisplay(sectionSelected, checkmarkCounterDisplay(sectionSelected));
+
+            closeOverlay();
+            return;
+        }
+        
+        const objData = addNewTask(extractFormData([title, description, due, priority]), section);
+        createCard(objData, section);
+        UpdateTaskCountDisplay(section, checkmarkCounterDisplay(section));
+
+        closeOverlay();
+    });
+
+    const hero = document.querySelector('.hero');
+    hero.append(formContainer);
+};
+
 function createForm(section) {
 
     const formContainer = document.createElement("div");
@@ -149,8 +262,6 @@ function createForm(section) {
             return;
         }
         
-        
-        console.log('hi')
         const objData = addNewTask(extractFormData([title, description, due, priority]), section);
         createCard(objData, section);
         UpdateTaskCountDisplay(section, checkmarkCounterDisplay(section));
@@ -289,6 +400,27 @@ function createCard(dataObj, section) {
     const editButton = new Image()
     editButton.src = editImage;
     editButton.className = 'edit-button'
+    editButton.addEventListener('click', function () {
+        
+        openEditForm(section);
+        const title = this.parentElement.querySelector('.title-value').textContent;
+        const desc = this.parentElement.nextSibling.querySelector('.details-value').innerHTML;
+        const due = this.parentElement.querySelector('.due-value').textContent;
+        const prio = this.parentElement.classList[1];
+        const checked = this.parentElement.classList.contains('checked');
+
+        const cardObj = {
+            title,
+            desc,
+            due,
+            prio,
+            checked
+        }
+
+        let test = toDoListCollection.getCollection(section)[0];
+        console.log(cardObj);
+        console.log(test);
+    })
     cardMain.appendChild(editButton)
     
     const deleteButton = new Image()
