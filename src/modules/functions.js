@@ -181,8 +181,26 @@ function createCard(dataObj, section) {
     cardDiv.className = 'card';
 
     cardDiv.addEventListener('click', function () {
-        this.children[0].classList.toggle('checked')
+        // adds/removes checkmark on click
+        const mainCardChecked = this.children[0].classList;
+        mainCardChecked.toggle('checked');
         
+        
+        // if (mainCardChecked.contains('checked')) {
+        //     const currentContainer = this.parentElement.classList[1].replace(/-container/g,'');
+        
+        // // Looks for specific obj attached to card and removes it
+        // const objSearch = toDoListCollection.getCollection(currentContainer);
+        // let objIndex;
+        // objSearch.forEach((obj, index) => {
+        //     if (this.querySelector('.title-value').textContent === obj['title'] && (this.querySelector('.due-value').textContent === obj['due'])) {
+        //         objIndex = index
+        //     }
+        // })
+
+        // toDoListCollection.remove(currentContainer, objIndex);
+        // UpdateTaskCountDisplay(currentContainer);
+        // }
     })
 
     const cardMain = document.createElement('div');
