@@ -123,7 +123,7 @@ function createForm(section) {
     
         const objData = addNewTask(extractFormData([title, description, due, priority]), section);
         createCard(objData, section);
-        UpdateTaskCountDisplay(section);
+        UpdateTaskCountDisplay(section, checkmarkCounterDisplay(section));
 
         closeOverlay();
     });
@@ -281,7 +281,7 @@ function createCard(dataObj, section) {
         }, 700);
         
 
-        UpdateTaskCountDisplay(section);
+        UpdateTaskCountDisplay(section, checkmarkCounterDisplay(section));
     })
     cardMain.appendChild(deleteButton)
     

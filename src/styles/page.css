@@ -231,12 +231,23 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: all .3s;
+
+  background-position: center;
+  transition: background 0.8s;
 }
 
 .details-button:hover {
     position: relative;
-    background-color: #93e4d8;
+    background-color: #93c3de;
     color: rgb(25, 23, 23);
+    cursor: pointer;
+    background: #47a7f5 radial-gradient(circle, transparent 1%, #81aed2 1%) center/15000%;
+  }
+
+  .details-button:active {
+    background-color: #c6d1d9;
+    background-size: 100%;
+    transition: background 0s;
   }
 
 .checked:before {
