@@ -160,10 +160,16 @@ function changeHeaderTitle(section) {
     currentSection.textContent = section;
 };
 
-function UpdateTaskCountDisplay(section) {
+function UpdateTaskCountDisplay(section, checkmarkAmount) {
     let countDisplay = document.querySelector(`.${section}-count`);
     const taskAmount = toDoListCollection.getCollection(section).length;
     
+    if (checkmarkAmount !== undefined) {
+        if ((taskAmount - checkmarkAmount) < 1) countDisplay.innerHTML = '';
+    else countDisplay.innerHTML = taskAmount - checkmarkAmount;
+    return;  
+    }
+
     if (taskAmount < 1) countDisplay.innerHTML = '';
     else countDisplay.innerHTML = taskAmount;  
 };
@@ -198,29 +204,13 @@ function createCard(dataObj, section) {
         if (checkMarkChecker === false) {
             mainCardChecked.toggle('checked');
             dataObj.checked = true;
-            console.log(dataObj.checked)
         } else {
             mainCardChecked.toggle('checked');
             dataObj.checked = false;
-            console.log(dataObj.checked)
         }
-        
-        // mainCardChecked.toggle('checked');
-        
-        
-        // if (mainCardChecked.contains('checked')) {
-            
-        // // Looks for specific obj attached to card and removes it
-        // const objSearch = toDoListCollection.getCollection(section);
-        // let objIndex;
-        // objSearch.forEach((obj, index) => {
-        //     if (this.querySelector('.title-value').textContent === obj['title'] && (this.querySelector('.due-value').textContent === obj['due'])) {
-        //         objIndex = index
-        //     }
-        // })
 
-        // objSearch[objIndex].checked = true;
-        // };
+        UpdateTaskCountDisplay(section, checkmarkCounterDisplay(section))
+        
     })
 
     const cardMain = document.createElement('div');
@@ -296,10 +286,22 @@ function createCard(dataObj, section) {
     cardMain.appendChild(deleteButton)
     
     heroContainer.appendChild(cardDiv);
-
-
-    
 }
+
+const checkmarkCounterDisplay = function(section) {
+    const collectionArr = toDoListCollection.getCollection(section);
+    let finishedTasksAmount;
+    collectionArr.forEach(obj => {
+        if (obj.checked === true) {
+            if (finishedTasksAmount === undefined)
+            finishedTasksAmount = 1; else {
+                finishedTasksAmount += 1;
+            }
+        }
+    })
+
+    return finishedTasksAmount;
+};
 
 
 export default addNewTask;
