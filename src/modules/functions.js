@@ -189,7 +189,9 @@ function createCard(dataObj, section) {
     cardDiv.className = 'card';
     
     
-    cardDiv.addEventListener('click', function () {
+    cardDiv.addEventListener('click', function (e) {
+        
+        if (!e.target.classList.contains('card-main')) return;
         // adds/removes checkmark on click
         const mainCardChecked = this.children[0].classList;
         const checkMarkChecker = dataObj.checked;
