@@ -21,7 +21,6 @@ const resetDom = () => {
 };
 
 const openForm = (section) => {
-    
     // Activates overlay
     let overlay = document.querySelector('.overlay');
     overlay.classList.toggle('overlay-active');
@@ -31,6 +30,7 @@ const openForm = (section) => {
 };
 
 function createForm(section) {
+
     const formContainer = document.createElement("div");
     formContainer.className = 'form-container'
 
@@ -43,10 +43,23 @@ function createForm(section) {
     for (let i = 0; i < sideBarSections.length; i++) {
         const div = document.createElement('div');
         div.className = `${sideBarSections[i].toLowerCase()}-sidebar`;
+        div.classList.add('sidebar-section');
         div.textContent = sideBarSections[i];
+        div.addEventListener('click', function () {
+            
+            (() => {
+                const sidebarSections = document.querySelectorAll('.sidebar-section');
+                sidebarSections.forEach((section) => {
+                    if (section.classList.contains('sidebar-selected')) section.classList.remove('sidebar-selected');
+                })
+            })();
+            this.classList.add('sidebar-selected');
+        })
+        
         sideBar.appendChild(div);
     }
 
+    
     const header = document.createElement('header');
     header.className = 'form-header';
     formContainer.appendChild(header);
@@ -115,7 +128,7 @@ function createForm(section) {
     };
     prioSubDiv.appendChild(priority);
 
-    var submit = document.createElement("input");
+    const submit = document.createElement("input");
     submit.setAttribute("type", "submit");
     submit.setAttribute("value", "Submit");
     prioSubDiv.appendChild(submit);
@@ -123,7 +136,21 @@ function createForm(section) {
     // Data extracted from form here
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-    
+
+        let sectionSelected = document.querySelector('.sidebar-selected');
+        if (sectionSelected) {
+            sectionSelected = document.querySelector('.sidebar-selected').innerHTML.toLowerCase();
+
+            const objData = addNewTask(extractFormData([title, description, due, priority]), sectionSelected);
+            
+            UpdateTaskCountDisplay(sectionSelected, checkmarkCounterDisplay(sectionSelected));
+
+            closeOverlay();
+            return;
+        }
+        
+        
+        console.log('hi')
         const objData = addNewTask(extractFormData([title, description, due, priority]), section);
         createCard(objData, section);
         UpdateTaskCountDisplay(section, checkmarkCounterDisplay(section));
@@ -271,7 +298,7 @@ function createCard(dataObj, section) {
     deleteButton.addEventListener('click', function() {
 
         let objectIndex;
-        toDoListCollection.getCollection('inbox').forEach((element, index) => {
+        toDoListCollection.getCollection(section).forEach((element, index) => {
                 if (this.parentElement.querySelector('.title-value').textContent === element['title'] && (this.parentElement.querySelector('.due-value').textContent === element['due'])) {
                     objectIndex = index;
                 }

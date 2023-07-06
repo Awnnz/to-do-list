@@ -403,6 +403,18 @@ body {
     font-size: 1.8rem;
 }
 
+.sidebar-section {
+    
+}
+
+.sidebar-selected::before {
+    content: '// ';
+}
+
+.sidebar-selected::after {
+    content: ' //';
+}
+
 .form-sidebar > *:hover {
     text-shadow: 0 0 2px whitesmoke;
 }
