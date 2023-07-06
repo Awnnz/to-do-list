@@ -6,7 +6,8 @@ import { closeOverlay } from '../pages/overlay.js';
 import { renderJustAdded } from './renderPage.js';
 
 const addNewTask = (obj, section) => {
-    toDoListCollection.add(obj, section)
+    toDoListCollection.add(obj, section);
+    return obj
 };
 
 const clearContainer = () => {
@@ -120,8 +121,8 @@ function createForm(section) {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
     
-        addNewTask(extractFormData([title, description, due, priority]), section);
-        createCard(extractFormData([title, description, due, priority]), section);
+        const objData = addNewTask(extractFormData([title, description, due, priority]), section);
+        createCard(objData, section);
         UpdateTaskCountDisplay(section);
 
         closeOverlay();
@@ -137,8 +138,15 @@ function deleteForm() {
 }
 
 function extractFormData(formData) {
+    
     const formDataObj = {};
-    formData.forEach(input => formDataObj[input.name] = input.value);
+    formData.forEach(input => {
+        if (input )
+        formDataObj[input.name] = input.value
+    });
+    
+    formDataObj.checked = false;
+    
     return formDataObj;
 };
 
@@ -179,18 +187,29 @@ function createCard(dataObj, section) {
 
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
-
+    
+    
     cardDiv.addEventListener('click', function () {
         // adds/removes checkmark on click
         const mainCardChecked = this.children[0].classList;
-        mainCardChecked.toggle('checked');
+        const checkMarkChecker = dataObj.checked;
+        if (checkMarkChecker === false) {
+            mainCardChecked.toggle('checked');
+            dataObj.checked = true;
+            console.log(dataObj.checked)
+        } else {
+            mainCardChecked.toggle('checked');
+            dataObj.checked = false;
+            console.log(dataObj.checked)
+        }
+        
+        // mainCardChecked.toggle('checked');
         
         
         // if (mainCardChecked.contains('checked')) {
-        //     const currentContainer = this.parentElement.classList[1].replace(/-container/g,'');
-        
+            
         // // Looks for specific obj attached to card and removes it
-        // const objSearch = toDoListCollection.getCollection(currentContainer);
+        // const objSearch = toDoListCollection.getCollection(section);
         // let objIndex;
         // objSearch.forEach((obj, index) => {
         //     if (this.querySelector('.title-value').textContent === obj['title'] && (this.querySelector('.due-value').textContent === obj['due'])) {
@@ -198,9 +217,8 @@ function createCard(dataObj, section) {
         //     }
         // })
 
-        // toDoListCollection.remove(currentContainer, objIndex);
-        // UpdateTaskCountDisplay(currentContainer);
-        // }
+        // objSearch[objIndex].checked = true;
+        // };
     })
 
     const cardMain = document.createElement('div');
@@ -209,7 +227,7 @@ function createCard(dataObj, section) {
     const cardDetails = document.createElement('div');
     cardDetails.classList.add('card-details');
     cardDetails.classList.add('card-details-hide');
-    console.log(cardMain.children);
+
     for (const prop in dataObj) {
         if (prop === 'title' || prop === 'due') {
             const div = document.createElement('div');
@@ -227,7 +245,10 @@ function createCard(dataObj, section) {
         }      
     }
 
-    
+    if (dataObj.checked === true) {
+        cardMain.classList.add('checked');
+    };
+
     const detailsButton = document.createElement('div');
     detailsButton.className = 'details-button';
     detailsButton.textContent = 'DETAILS';
@@ -242,12 +263,6 @@ function createCard(dataObj, section) {
 
     
     if (cardMain.children[1]) cardMain.insertBefore(detailsButton, cardMain.children[1]); else cardMain.appendChild(detailsButton);
-    
-    
-    
-
-
-
 
     const editButton = new Image()
     editButton.src = editImage;
@@ -257,7 +272,7 @@ function createCard(dataObj, section) {
     const deleteButton = new Image()
     deleteButton.src = deleteImage;
     deleteButton.className = 'delete-button';
-
+    
     deleteButton.addEventListener('click', function() {
 
         let objectIndex;
@@ -277,9 +292,10 @@ function createCard(dataObj, section) {
         UpdateTaskCountDisplay(section);
     })
     cardMain.appendChild(deleteButton)
-
     
     heroContainer.appendChild(cardDiv);
+
+
     
 }
 

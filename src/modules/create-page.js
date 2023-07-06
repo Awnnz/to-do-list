@@ -17,6 +17,9 @@ const createPage = () => {
         <div class="login">Login</div>
         `;
         container.appendChild(header);
+        document.querySelector('.login').addEventListener('click', ()=>{
+            console.log(toDoListCollection.getCollection('inbox')[0].checked);
+        })
     })();
 
     const createSideBar = (() => {

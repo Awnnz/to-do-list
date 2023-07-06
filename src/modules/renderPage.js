@@ -43,8 +43,6 @@ const renderTasks = (dataObj, section) =>{
     dataObj.forEach(task => {
         createCard(task, section)
     })
-    
-    
 };
 
 export default renderTask;
