@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {toDoListCollection} from './todo-objs.js';
 import logoImage from './../assets/logo.png';
 import deleteImage from './../assets/delete.svg';
@@ -29,18 +30,18 @@ const openForm = (section) => {
     
 };
 
-const openEditForm = (section) => {
+const openEditForm = (section, obj, card) => {
     let overlay = document.querySelector('.overlay');
     overlay.classList.toggle('overlay-active');
 
     
-    editForm(section)
+    editForm(section, obj, card)
 };
 
-const editForm = (section) => {
+const editForm = (section, obj, card) => {
     const formContainer = document.createElement("div");
     formContainer.className = 'form-container'
-
+    
     const header = document.createElement('header');
     header.className = 'form-header';
     formContainer.appendChild(header);
@@ -69,7 +70,7 @@ const editForm = (section) => {
     title.setAttribute("type", "text");
     title.setAttribute("name", "title");
     title.setAttribute("placeholder", "Title");
-    // title.textContent = obj[title];
+    title.setAttribute(`value`, obj.title)
     form.appendChild(title);
 
     const description = document.createElement("textarea");
@@ -77,6 +78,7 @@ const editForm = (section) => {
     description.setAttribute("type", "text");
     description.setAttribute("name", "desc");
     description.setAttribute("placeholder", "Details: e.g internet, phone, rent.");
+    description.textContent = `${obj.desc}`;
     form.appendChild(description);
 
     const dueDateDiv = document.createElement('div');
@@ -86,6 +88,7 @@ const editForm = (section) => {
     const dueDateText = document.createElement('div');
     dueDateText.className = 'date-text';
     dueDateText.innerText = 'Due Date:'
+    // dueDateText.setAttribute(`value`, `${obj.due}`);
     dueDateDiv.appendChild(dueDateText);
 
     const due = document.createElement("input");
@@ -93,6 +96,7 @@ const editForm = (section) => {
     due.setAttribute('required', '');
     due.setAttribute("type", "date");
     due.setAttribute("name", "due");
+    due.value = obj.due;
     dueDateDiv.appendChild(due);
 
     const prioSubDiv = document.createElement('div');
@@ -105,11 +109,18 @@ const editForm = (section) => {
     for (let i = 0; i < prioChoices.length; i++) {
         const option = document.createElement('option');
         option.textContent = prioChoices[i];
+        option.className = `${prioChoices[i]}-value`
         option.setAttribute('value', `${prioChoices[i].toLocaleLowerCase()}`);
+
+        if (prioChoices[i].toLowerCase() === obj.prio) {
+            option.setAttribute('selected', 'selected');
+        }
         priority.appendChild(option);
     };
-    prioSubDiv.appendChild(priority);
 
+    prioSubDiv.appendChild(priority);
+    const checked = obj.checked;
+    
     const submit = document.createElement("input");
     submit.setAttribute("type", "submit");
     submit.setAttribute("value", "Submit");
@@ -118,22 +129,15 @@ const editForm = (section) => {
     // Data extracted from form here
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-
-        let sectionSelected = document.querySelector('.sidebar-selected');
-        if (sectionSelected) {
-            sectionSelected = document.querySelector('.sidebar-selected').innerHTML.toLowerCase();
-
-            const objData = addNewTask(extractFormData([title, description, due, priority]), sectionSelected);
-            
-            UpdateTaskCountDisplay(sectionSelected, checkmarkCounterDisplay(sectionSelected));
-
-            closeOverlay();
-            return;
-        }
         
-        const objData = addNewTask(extractFormData([title, description, due, priority]), section);
-        createCard(objData, section);
-        UpdateTaskCountDisplay(section, checkmarkCounterDisplay(section));
+        const UpdatedObjData = extractFormData([title, description, due, priority], checked);
+        
+        Object.assign(obj, UpdatedObjData);
+
+        card.classList.replace(card.classList[1], obj.prio);
+        card.querySelector('.title-value').textContent = obj.title;
+        card.querySelector('.due-value').textContent = obj.due;
+        card.nextSibling.querySelector('.details-value').textContent = obj.desc
 
         closeOverlay();
     });
@@ -278,7 +282,7 @@ function deleteForm() {
     form.remove();
 }
 
-function extractFormData(formData) {
+function extractFormData(formData, checked) {
     
     const formDataObj = {};
     formData.forEach(input => {
@@ -287,6 +291,8 @@ function extractFormData(formData) {
     });
     
     formDataObj.checked = false;
+
+    if (checked === true) formDataObj.checked = true;
     
     return formDataObj;
 };
@@ -400,9 +406,9 @@ function createCard(dataObj, section) {
     const editButton = new Image()
     editButton.src = editImage;
     editButton.className = 'edit-button'
+
     editButton.addEventListener('click', function () {
-        
-        openEditForm(section);
+        // Creates own data obj from card and matches to obj in collection
         const title = this.parentElement.querySelector('.title-value').textContent;
         const desc = this.parentElement.nextSibling.querySelector('.details-value').innerHTML;
         const due = this.parentElement.querySelector('.due-value').textContent;
@@ -414,13 +420,22 @@ function createCard(dataObj, section) {
             desc,
             due,
             prio,
-            checked
+            checked,
         }
 
-        let test = toDoListCollection.getCollection(section)[0];
-        console.log(cardObj);
-        console.log(test);
+        const objCollection = toDoListCollection.getCollection(section);
+
+        let objMatch;
+
+        for (const obj of objCollection) {
+            if (_.isEqual(cardObj, obj)) objMatch = obj;  
+        };
+        
+        const thisCard = this.parentElement;
+        
+        openEditForm(section, objMatch, thisCard);  
     })
+
     cardMain.appendChild(editButton)
     
     const deleteButton = new Image()

@@ -211,8 +211,8 @@ body {
     margin-right: 1.5rem;
 }
 
-.delete-button {
-
+.edit-button:hover, .delete-button:hover{
+  background-color: #40c9c9;
 }
 
 .delete-button, .edit-button {
@@ -484,6 +484,10 @@ body {
   text-transform: uppercase;
   font-family: lato, sans-serif;
 }
+
+
+
+
 
 
 
