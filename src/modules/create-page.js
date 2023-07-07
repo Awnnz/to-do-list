@@ -20,23 +20,9 @@ const createPage = () => {
 
         container.appendChild(header);
 
-        // document.querySelector('.login').addEventListener('click', ()=>{
-        //    const project1 = project('project1');
-           
-
-        //    const project2 = project('project2');
-
-        //    project1.addTask({title:'eat', desc:'replenish nutes', prio:'high', due:'now'})
-           
-
-        //    project1.addTask({title:'shit', desc:'fuck', prio:'low', due:'yea'})
-           
-        //    project2.addTask({title:'job', desc:'money', prio:'girls', due:'cocaine'})
-
-        //    projectCollection.addProject(project1.name ,project1.getTasks());
-        //    projectCollection.addProject(project2.name, project2.getTasks());
-        //    console.log(projectCollection.getProjects());
-        // });
+        document.querySelector('.login').addEventListener('click', ()=>{
+            console.log(projectCollection.getProjects());
+        });
 
     })();
 

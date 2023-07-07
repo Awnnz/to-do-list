@@ -129,9 +129,10 @@ const createProjectForm = () => {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        const newProject = project(title.value, description.value,     priority.value, due.value, checked);
+        const newProject = project(title.value, description.value, priority.value, due.value, checked);
         
         createProjectCard(newProject.getProjectInfo(), 'projects')
+        addToProjectsCollection(title.value, newProject.getProjectInfo());
         addToProjectsSection(title.value);
         closeOverlay();
     });
@@ -140,10 +141,15 @@ const createProjectForm = () => {
     hero.append(formContainer);
 };
 
+function addToProjectsCollection (projectName, projectArr) {
+    projectCollection.addProject(projectName, projectArr);
+}
+
 function addToProjectsSection (projectName) {
     const projectSection = document.querySelector('.projects-section');
 
     const projectDiv = document.createElement('div');
+    projectDiv.className = 'project-tag'
     projectDiv.innerHTML = projectName;
     projectSection.appendChild(projectDiv)
 };
@@ -169,7 +175,7 @@ function createProjectCard(dataObj, section) {
             dataObj.checked = false;
         }
 
-        UpdateTaskCountDisplay(section, checkmarkCounterDisplay(section))
+        // UpdateTaskCountDisplay(section, checkmarkCounterDisplay(section))
         
     })
 
@@ -221,7 +227,6 @@ function createProjectCard(dataObj, section) {
     editButton.className = 'edit-button'
 
     editButton.addEventListener('click', function () {
-        // Creates own data obj from card and matches to obj in collection
         const title = this.parentElement.querySelector('.title-value').textContent;
         const desc = this.parentElement.nextSibling.querySelector('.details-value').innerHTML;
         const due = this.parentElement.querySelector('.due-value').textContent;
@@ -236,7 +241,7 @@ function createProjectCard(dataObj, section) {
             checked,
         }
 
-        const objCollection = toDoListCollection.getCollection(section);
+        const projectFromDatabase = project.getProjectInfo();
 
         let objMatch;
 
@@ -245,8 +250,9 @@ function createProjectCard(dataObj, section) {
         };
         
         const thisCard = this.parentElement;
-        
-        openEditForm(section, objMatch, thisCard);  
+         
+        openEditProjectForm('project', objMatch ,thisCard)  
+        console.log(this)
     })
 
     cardMain.appendChild(editButton)
@@ -262,6 +268,122 @@ function createProjectCard(dataObj, section) {
     
     heroContainer.appendChild(cardDiv);
 }
+
+function openEditProjectForm() {
+    let overlay = document.querySelector('.overlay');
+    overlay.classList.toggle('overlay-active');
+
+    editProjectForm(section, obj, card)
+};
+
+function editProjectForm(section, obj, card) {
+    const formContainer = document.createElement("div");
+    formContainer.className = 'edit-form-container'
+    
+    const header = document.createElement('header');
+    header.className = 'form-header';
+    formContainer.appendChild(header);
+
+    const logo = new Image();
+    logo.classList.add('form-logo');
+    logo.src = logoImage;
+    header.appendChild(logo);
+
+    const closeButton = document.createElement('div');
+    closeButton.classList.add('close-button');
+    closeButton.textContent = 'x';
+    closeButton.addEventListener('click', () => {
+        closeEditOverlay()
+    });
+    header.appendChild(closeButton);
+
+    const form = document.createElement("form");
+    form.className = 'form'
+    formContainer.appendChild(form)
+
+    const title = document.createElement("input");
+    title.classList.add('title-input');
+    title.setAttribute('minlength', 3);
+    title.setAttribute('maxlength', '40');
+    title.setAttribute('required', '');
+    title.setAttribute("type", "text");
+    title.setAttribute("name", "title");
+    title.setAttribute("placeholder", "Title");
+    title.setAttribute(`value`, obj.title)
+    form.appendChild(title);
+
+    const description = document.createElement("textarea");
+    description.classList.add('description');
+    description.setAttribute("type", "text");
+    description.setAttribute("name", "desc");
+    description.setAttribute("placeholder", "Details: e.g internet, phone, rent.");
+    description.textContent = `${obj.desc}`;
+    form.appendChild(description);
+
+    const dueDateDiv = document.createElement('div');
+    dueDateDiv.className = 'date-div';
+    form.appendChild(dueDateDiv);
+    
+    const dueDateText = document.createElement('div');
+    dueDateText.className = 'date-text';
+    dueDateText.innerText = 'Due Date:'
+    // dueDateText.setAttribute(`value`, `${obj.due}`);
+    dueDateDiv.appendChild(dueDateText);
+
+    const due = document.createElement("input");
+    due.className = 'due-date-input';
+    due.setAttribute('required', '');
+    due.setAttribute("type", "date");
+    due.setAttribute("name", "due");
+    due.value = obj.due;
+    dueDateDiv.appendChild(due);
+
+    const prioSubDiv = document.createElement('div');
+    prioSubDiv.className = 'prio-sub-div';
+    form.appendChild(prioSubDiv);
+
+    const priority = document.createElement('select');
+    const prioChoices = ['Low', 'Moderate', 'High'];
+    priority.setAttribute('name', 'prio');
+    for (let i = 0; i < prioChoices.length; i++) {
+        const option = document.createElement('option');
+        option.textContent = prioChoices[i];
+        option.className = `${prioChoices[i]}-value`
+        option.setAttribute('value', `${prioChoices[i].toLocaleLowerCase()}`);
+
+        if (prioChoices[i].toLowerCase() === obj.prio) {
+            option.setAttribute('selected', 'selected');
+        }
+        priority.appendChild(option);
+    };
+
+    prioSubDiv.appendChild(priority);
+    const checked = obj.checked;
+    
+    const submit = document.createElement("input");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("value", "Submit");
+    prioSubDiv.appendChild(submit);
+
+    // Data extracted from form here
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const UpdatedObjData = extractFormData([title, description, due, priority], checked);
+        
+        Object.assign(obj, UpdatedObjData);
+
+        card.classList.replace(card.classList[1], obj.prio);
+        card.querySelector('.title-value').textContent = obj.title;
+        card.querySelector('.due-value').textContent = obj.due;
+        card.nextSibling.querySelector('.details-value').textContent = obj.desc
+
+        closeEditOverlay();
+    });
+
+    const hero = document.querySelector('.hero');
+    hero.append(formContainer);
+};
 
 
 const editForm = (section, obj, card) => {

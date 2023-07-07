@@ -6,7 +6,8 @@ function project(title, desc, prio, due, checked) {
         desc,
         prio,
         due,
-        checked
+        checked,
+        tasks
     };
 
     const getProjectInfo = () => {
