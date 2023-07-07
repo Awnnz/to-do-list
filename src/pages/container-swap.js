@@ -52,4 +52,21 @@ const createWeekContainer = () => {
     });
 };
 
-export {createHeroContainer, createTodayContainer, createWeekContainer};
+const createProjectsContainer = () => {
+    const container = document.querySelector('.main-container');
+    
+
+    const projectsContainer = document.createElement('div');
+    projectsContainer.className = 'hero';
+    projectsContainer.classList.add('projects-container')
+    projectsContainer.innerHTML = `
+    <button class="new-task projects-add" id='projects'>+</button>
+    `;
+    container.appendChild(projectsContainer);
+
+    document.querySelector('.new-task').addEventListener('click', (e) => {
+        // openForm(e.target.id);
+    });
+};
+
+export {createHeroContainer, createTodayContainer, createWeekContainer, createProjectsContainer};

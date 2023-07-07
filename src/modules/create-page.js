@@ -38,6 +38,15 @@ const createPage = () => {
             <span class='week-text'>Week</span>
             <span class='week-count task-count'></span>
         </div>
+        <div class="projects-tab">
+            <div class='project-text section'>
+            Projects
+            </div>
+            <div class='projects-container'>
+            <span>proj1</span>
+            <span>proj2</span>
+            </div>
+        </div>
         `;
         container.appendChild(sideBar);
     })();    
