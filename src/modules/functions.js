@@ -3,7 +3,7 @@ import {toDoListCollection} from './todo-objs.js';
 import logoImage from './../assets/logo.png';
 import deleteImage from './../assets/delete.svg';
 import editImage from './../assets/edit.svg';
-import { closeOverlay } from '../pages/overlay.js';
+import { closeOverlay, closeEditOverlay } from '../pages/overlay.js';
 import { renderJustAdded } from './renderPage.js';
 
 const addNewTask = (obj, section) => {
@@ -40,7 +40,7 @@ const openEditForm = (section, obj, card) => {
 
 const editForm = (section, obj, card) => {
     const formContainer = document.createElement("div");
-    formContainer.className = 'form-container'
+    formContainer.className = 'edit-form-container'
     
     const header = document.createElement('header');
     header.className = 'form-header';
@@ -55,7 +55,7 @@ const editForm = (section, obj, card) => {
     closeButton.classList.add('close-button');
     closeButton.textContent = 'x';
     closeButton.addEventListener('click', () => {
-        closeOverlay();
+        closeEditOverlay()
     });
     header.appendChild(closeButton);
 
@@ -66,6 +66,7 @@ const editForm = (section, obj, card) => {
     const title = document.createElement("input");
     title.classList.add('title-input');
     title.setAttribute('minlength', 3);
+    title.setAttribute('maxlength', '40');
     title.setAttribute('required', '');
     title.setAttribute("type", "text");
     title.setAttribute("name", "title");
@@ -139,7 +140,7 @@ const editForm = (section, obj, card) => {
         card.querySelector('.due-value').textContent = obj.due;
         card.nextSibling.querySelector('.details-value').textContent = obj.desc
 
-        closeOverlay();
+        closeEditOverlay();
     });
 
     const hero = document.querySelector('.hero');
@@ -201,6 +202,7 @@ function createForm(section) {
     const title = document.createElement("input");
     title.classList.add('title-input');
     title.setAttribute('minlength', 3);
+    title.setAttribute('maxlength', '40');
     title.setAttribute('required', '');
     title.setAttribute("type", "text");
     title.setAttribute("name", "title");
@@ -282,6 +284,11 @@ function deleteForm() {
     form.remove();
 }
 
+function deleteEditForm() {
+    const form = document.querySelector('.edit-form-container');
+    form.remove();
+}
+
 function extractFormData(formData, checked) {
     
     const formDataObj = {};
@@ -359,6 +366,10 @@ function createCard(dataObj, section) {
         UpdateTaskCountDisplay(section, checkmarkCounterDisplay(section))
         
     })
+
+    // const prioDiv = document.createElement('div');
+    // prioDiv.className = dataObj.prio;
+    // cardDiv.appendChild(prioDiv);
 
     const cardMain = document.createElement('div');
     cardMain.classList.add('card-main');
@@ -455,7 +466,7 @@ function createCard(dataObj, section) {
         toDoListCollection.remove(section, objectIndex);
         setTimeout(() => {
             this.parentElement.parentElement.remove();
-        }, 700);
+        }, 200);
         
 
         UpdateTaskCountDisplay(section, checkmarkCounterDisplay(section));
@@ -482,4 +493,4 @@ const checkmarkCounterDisplay = function(section) {
 
 
 export default addNewTask;
-export {clearContainer, resetDom, openForm, deleteForm, changeHeaderTitle, UpdateTaskCountDisplay, markActiveSection, removeActiveSections, createCard};
+export {clearContainer, resetDom, openForm, deleteForm, changeHeaderTitle, UpdateTaskCountDisplay, markActiveSection, removeActiveSections, createCard, deleteEditForm};

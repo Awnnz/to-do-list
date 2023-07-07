@@ -1,4 +1,4 @@
-import { deleteForm } from "../modules/functions";
+import { deleteForm, deleteEditForm } from "../modules/functions";
 
  function createOverlay() {
     const container = document.querySelector('.main-container');
@@ -22,7 +22,16 @@ function closeOverlay() {
     
 };
 
-export {createOverlay, closeOverlay};
+function closeEditOverlay() {
+    // if (!document.querySelector('.overlay')) return;
+    const overlay = document.querySelector('.overlay');
+    
+    overlay.classList.toggle('overlay-active');
+    if (document.querySelector('.edit-form-container')) deleteEditForm();   
+    
+};
+
+export {createOverlay, closeOverlay, closeEditOverlay};
 
 
 

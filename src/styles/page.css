@@ -161,6 +161,22 @@ body {
     flex-direction: column;
     animation-name: slideUp;
     animation-duration: .3s;
+    
+}
+
+.low {
+  border: 3px solid greenyellow;
+  border-radius: 20px;
+}
+
+.moderate {
+  border: 3px solid orange;
+  border-radius: 20px;
+}
+
+.high {
+  border: 2px solid rgb(220, 109, 109);
+  border-radius: 20px;
 }
 
 .zoom {
@@ -372,6 +388,21 @@ body {
     height: 45%;
     width: 90%
 }
+
+/*  */
+.edit-form-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 12fr;
+  z-index: 2;
+  position: absolute;
+  background: rgb(127, 191, 191);
+  top: 23%;
+  right: 18%;
+  height: 45%;
+  width: 90%
+}
+/*  */
 
 .description {
     resize: none;
