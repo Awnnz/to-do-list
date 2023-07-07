@@ -366,7 +366,7 @@ body {
     flex-direction: column;
   }
 
-  .projects-container {
+  .projects-section {
     display: flex;
     flex-direction: column;
     font-weight: normal;
@@ -406,7 +406,7 @@ body {
 }
 
 /*  */
-.edit-form-container {
+.edit-form-container, .projects-form-container {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 12fr;

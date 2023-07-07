@@ -1,4 +1,4 @@
-import addNewTask, {openForm} from "../modules/functions";
+import addNewTask, {openForm, openProjectForm} from "../modules/functions";
 import { toDoListCollection } from "../modules/todo-objs";
 import { renderJustAdded } from "../modules/renderPage";
 
@@ -65,7 +65,7 @@ const createProjectsContainer = () => {
     container.appendChild(projectsContainer);
 
     document.querySelector('.new-task').addEventListener('click', (e) => {
-        // openForm(e.target.id);
+        openProjectForm();
     });
 };
 
