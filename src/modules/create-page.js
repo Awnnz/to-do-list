@@ -1,31 +1,31 @@
 import { createOverlay } from "../pages/overlay";
-import logo from './../assets/logo2.png';
+import logo from "./../assets/logo2.png";
 import { toDoListCollection } from "./todo-objs";
 
 const createPage = () => {
-    const container = document.querySelector('.main-container');
+  const container = document.querySelector(".main-container");
 
-    const createHeader = (() => {
-        const header = document.createElement('header');
-        header.className = 'header';
-        
-        header.innerHTML = `
+  const createHeader = (() => {
+    const header = document.createElement("header");
+    header.className = "header";
+
+    header.innerHTML = `
         <div class="logo">
         <img class='logo-image' src=${logo}>
         </div>
         <div class="current-section">Inbox</div>
         <div class="login">Login</div>
         `;
-        container.appendChild(header);
-        // document.querySelector('.login').addEventListener('click', ()=>{
-        //     console.log(toDoListCollection.getCollection('inbox'));
-        // })
-    })();
+    container.appendChild(header);
+    // document.querySelector('.login').addEventListener('click', ()=>{
+    //     console.log(toDoListCollection.getCollection('inbox'));
+    // })
+  })();
 
-    const createSideBar = (() => {
-        const sideBar = document.createElement('div');
-        sideBar.className = 'sidebar';
-        sideBar.innerHTML = `
+  const createSideBar = (() => {
+    const sideBar = document.createElement("div");
+    sideBar.className = "sidebar";
+    sideBar.innerHTML = `
         <div class="inbox-main section">
             <span class='inbox-text'>Inbox</span>
             <span class='inbox-count task-count'></span>
@@ -39,10 +39,10 @@ const createPage = () => {
             <span class='week-count task-count'></span>
         </div>
         `;
-        container.appendChild(sideBar);
-    })();    
+    container.appendChild(sideBar);
+  })();
 
-    createOverlay();
+  createOverlay();
 };
 
 export default createPage;
